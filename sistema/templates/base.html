@@ -37,15 +37,13 @@
 
     </head>
     <body class="bg_d">
-    <!-- main wrapper (without footer) -->    
-        <div class="main-wrapper">
         {% block navbar %}
         {% endblock %}
 
         {% block content %}
         {% endblock %}
 
-    <!-- footer --> 
+        <!-- footer --> 
         <footer>
             <div class="container">
                 <div class="row">
@@ -63,7 +61,7 @@
             </div>
         </footer>
         
-    <!-- Common JS -->
+        <!-- Common JS -->
         <!-- jQuery framework -->
             <script src="{% static 'js/jquery.min.js' %}"></script>
             <script src="{% static 'js/jquery-migrate.js' %}"></script>
@@ -85,7 +83,7 @@
             <script src="{% static 'js/beoro_common.js' %}"></script>
 
 
-    <!-- Dashboard JS -->
+        <!-- Dashboard JS -->
         <!-- jQuery UI -->
             <script src="{% static 'js/lib/jquery-ui/jquery-ui-1.10.2.custom.min.js' %}"></script>
         <!-- touch event support for jQuery UI -->
@@ -108,6 +106,5 @@
             <script src="{% static 'js/lib/wookmark/jquery.wookmark.min.js' %}"></script>
 
             <script src="{% static 'js/pages/beoro_dashboard.js' %}"></script>
-
     </body>
 </html>
