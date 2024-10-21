@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="icon" type="image/ico" href="{% static 'favicon.ico' %}">
+    <title>Meu Estoque Fácil - Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/beoro.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet'>
+    <!-- jQuery framework -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- validation -->
+        <script src="{% static 'js/lib/jquery-validation/jquery.validate.js' %}"></script>
+    <script type="text/javascript">
+        (function(a){a.fn.vAlign=function(){return this.each(function(){var b=a(this).height(),c=a(this).outerHeight(),b=(b+(c-b))/2;a(this).css("margin-top","-"+b+"px");a(this).css("top","50%");a(this).css("position","absolute")})}})(jQuery);(function(a){a.fn.hAlign=function(){return this.each(function(){var b=a(this).width(),c=a(this).outerWidth(),b=(b+(c-b))/2;a(this).css("margin-left","-"+b+"px");a(this).css("left","50%");a(this).css("position","absolute")})}})(jQuery);
+        $(document).ready(function() {
+            if($('#login-wrapper').length) {
+                $("#login-wrapper").vAlign().hAlign()
+            };
+            if($('#login-validate').length) {
+                $('#login-validate').validate({
+                    onkeyup: false,
+                    errorClass: 'error',
+                    rules: {
+                        username: { required: true },
+                        password: { required: true }
+                    }
+                })
+            }
+            if($('#forgot-validate').length) {
+                $('#forgot-validate').validate({
+                    onkeyup: false,
+                    errorClass: 'error',
+                    rules: {
+                        forgot_email: { required: true, email: true }
+                    }
+                })
+            }
+            $('#pass_login').click(function() {
+                $('.panel:visible').slideUp('200',function() {
+                    $('.panel').not($(this)).slideDown('200');
+                });
+                $(this).children('span').toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="login-wrapper" class="clearfix">
+        {% if error %}
+        <div class="alert alert-error">
+            <a data-dismiss="alert" class="close">
+                    <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">×</font>
+                    </font>
+            </a>
+            <strong>
+                <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">ERRO!</font>
+                </font>
+            </strong>
+            <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;"> {{message}}   </font>
+           </font>
+        </div>
+        {% endif %}
+        <div class="main-col">
+            <img src="{% static 'img/beoro.png' %}" alt="" class="logo_img" />
+            <div class="panel">
+                <p class="heading_main">Login</p>
+                <form id="login-validate" action="{% url 'login' %}" method="post">{% csrf_token %}
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" name="username" />
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" />
+                    <!-- <label for="login_remember" class="checkbox"><input type="checkbox" id="login_remember" name="login_remember" /> Remember me</label> -->
+                    <div class="submit_sect">
+                        <button type="submit" class="btn btn-beoro-3">Entrar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="panel" style="display:none">
+                <p class="heading_main">Não consegue entrar?</p>
+                <form id="forgot-validate" method="post">
+                    <label for="forgot_email">Informe seu endereço de email</label>
+                    <input type="text" id="forgot_email" name="forgot_email" />
+                    <div class="submit_sect">
+                        <button type="submit" class="btn btn-beoro-3">Enviar nova senha</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="login_links">
+            <a href="javascript:void(0)" id="pass_login"><span>Esqueceu sua senha?</span><span style="display:none">Voltar para o Login</span></a>
+        </div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

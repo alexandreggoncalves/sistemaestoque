@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+        {% block header %}
+            {% include 'header.html' %}
+        {% endblock %}
+
+    <!-- breadcrumbs -->
+    <div class="container">
+        <ul id="breadcrumbs">
+            <li><a href="/sistema/"><i class="icon-home"></i></a></li>
+            <li><span>Dashboard</span></li>
+        </ul>
+    </div>        
+    <!-- main content -->
+        <div class="container">
+            <div class="row-fluid">
+
+        <div class="footer_space"></div>
+    </div> 
+{% endblock %}
