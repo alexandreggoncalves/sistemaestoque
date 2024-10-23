@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Inserir Usuário</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+              <li class="breadcrumb-item">Produtos</li>
+              <li class="breadcrumb-item active">Inserir Produto</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->    
+      </main><!-- End #main -->
+{% endblock %}

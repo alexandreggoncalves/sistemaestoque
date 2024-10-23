@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Listar Usuários</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+                    <li class="breadcrumb-item">Usuários</li>
+                    <li class="breadcrumb-item active">Listar Usuários</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+    
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Usuários cadastrados no sistema</h5>
+
+                            <!-- Table with hoverable rows -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Super User</th>
+                                        <th scope="col">Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for usuarios in users %}
+                                    <tr>
+                                        <th scope="row">{{usuarios.pk}}</th>
+                                        <td>{{usuarios.name}}</td>
+                                        <td>{{usuarios.email}}</td>
+                                        <td>{{usuarios.date_joined}}</td>
+                                        <td>
+                                            {% if usuarios.is_superuser %}
+                                                <button type="button" class="btn btn-sm btn-primary">
+                                                    <i class="ri-admin-fill"></i>
+                                                </button>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-success">
+                                                <i class="ri-edit-box-fill"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- End Table with hoverable rows -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
