@@ -6,5 +6,5 @@ class CategoriaForm(forms.ModelForm):
         model = Categoria
         fields = ['nome']
         widgets = {
-            'nome': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'insira o nome da categoria'})
+            'nome': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Informe o nome da categoria'})
         }

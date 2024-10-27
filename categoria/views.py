@@ -35,10 +35,15 @@ def editarCategoria(request, id):
         Cat = Categoria.objects.filter(idCategoria=id).first()
         form = CategoriaForm(instance=Cat)
         return render(request, 'editarCategoria.html', { 'form': form})
-
+    
 # LISTAR CATEGORIA
 @login_required(login_url='/sistema/login/') 
 def listarCategorias(request):
+    # POST PARA DELETAR CATEGORIA
+    if request.method == 'POST':
+        Categoria.objects.filter(idCategoria=request.POST.get('idCategoria')).delete()
+        return redirect('listarCategorias')
+
     categorias = {
         'categorias': Categoria.objects.all().order_by('nome')
     }

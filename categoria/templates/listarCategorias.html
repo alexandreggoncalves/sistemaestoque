@@ -41,6 +41,13 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <td colspan="3">
+                                            <a href="/categoria/inserirCategoria">
+                                                <button class="btn btn-sm btn-primary">Inserir Nova Categoria</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nome</th>
                                         <th></th>
@@ -52,9 +59,43 @@
                                         <td scope="col">{{categoria.idCategoria}}</td>
                                         <td scope="col">{{categoria.nome}}</td>
                                         <td>
-                                            <a href="/categoria/editarCategoria/{{categoria.idCategoria}}">
-                                                <button class="btn btn-sm btn-primary" alt="editar"><i class="bi bi-book"></i></button>
-                                            </a>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/categoria/editarCategoria/{{categoria.idCategoria}}">
+                                                            <button class="btn btn-sm btn-primary" alt="editar"><i class="bi bi-book"></i></button>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="idCategoria" value="{{categoria.idCategoria}}">
+                                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{categoria.idCategoria}}"><i class="bi bi-trash"></i></button>
+                                                        </form>
+                                                        <div class="modal fade" id="delete{{categoria.idCategoria}}" tabindex="-1">
+                                                            <div class="modal-dialog">
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title">ATENÇÃO!</h5>
+                                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                  Deseja realemnte excluir o registro: <span class="badge rounded-pill bg-warning text-dark">{{categoria.idCategoria}} - {{categoria.nome}}</span>?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">NÃO</button>
+                                                                    <form action="" method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="idCategoria" value="{{categoria.idCategoria}}">
+                                                                        <button type="submit" class="btn btn-danger btn-sm">SIM</button>
+                                                                    </form>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
                                     {% endfor %}
