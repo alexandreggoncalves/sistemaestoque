@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Listar Categorias</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+                    <li class="breadcrumb-item">Categorias</li>
+                    <li class="breadcrumb-item active">Listar Categorias</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+    
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Categorias cadastradas no sistema</h5>
+                            {% if message %}
+                            <div class="col-lg-4">
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  {{ message }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                            </div>
+                            {% endif %}
+                            <!-- Table with hoverable rows -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for categoria in categorias %}
+                                    <tr>
+                                        <td scope="col">{{categoria.idCategoria}}</td>
+                                        <td scope="col">{{categoria.nome}}</td>
+                                        <td>
+                                            <a href="/categoria/editarCategoria/{{categoria.idCategoria}}">
+                                                <button class="btn btn-sm btn-primary" alt="editar"><i class="bi bi-book"></i></button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- End Table with hoverable rows -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
