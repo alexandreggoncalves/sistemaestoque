@@ -41,10 +41,62 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             <a href="/fornecedor/inserirFornecedor">
                                                 <button class="btn btn-sm btn-primary">Inserir Novo Fornecedor</button>
                                             </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="row mb-3">
+                                                <form class="row g-3">
+                                                    <form action="" method="GET">
+                                                        <input type="hidden" name="page" value="{{page.number}}">
+                                                        <div class="col-md-3">
+                                                            <input type="text" class="form-control" id="busca" name="busca" value="{{request.GET.busca}}" placeholder="busca...">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+                                                            <a href="/fornecedor/listarFornecedores">limpar</a>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="page-links">
+                                                                <!-- Disabled and active states -->
+                                                                <nav aria-label="...">
+                                                                    <ul class="pagination justify-content-end">
+                                                                    {% if page.has_previous %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="/fornecedor/listarFornecedores/?page={{page.previous_page_number}}&busca={{request.GET.busca}}" tabindex="-1">Anterior</a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="page-item disabled">
+                                                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                    {% for pageNum in page.paginator.page_range %}
+                                                                        {% if page.number == pageNum %}
+                                                                            <li class="page-item active"><a class="page-link" href="#">{{pageNum}}</a></li>
+                                                                        {% else %}
+                                                                            <li class="page-item"><a class="page-link" href="/fornecedor/listarFornecedores/?page={{pageNum}}&busca={{request.GET.busca}}">{{pageNum}}</a></li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    {% if page.has_next %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="/fornecedor/listarFornecedores/?page={{page.next_page_number}}&busca={{request.GET.busca}}">Próxima</a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="page-item disabled">
+                                                                            <a class="page-link" href="#" aria-disabled="true">Próxima</a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                    </ul>
+                                                                </nav><!-- End Disabled and active states -->
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -55,7 +107,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for fornecedor in fornecedores %}
+                                    {% for fornecedor in page.object_list %}
                                     <tr>
                                         <td scope="col">{{fornecedor.idFornecedor}}</td>
                                         <td scope="col">{{fornecedor.nomeFornecedor}}</td>
@@ -83,6 +135,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                   Deseja realemnte excluir o registro: <span class="badge rounded-pill bg-warning text-dark">{{fornecedor.idFornecedor}} - {{fornecedor.nomeFornecedor}}</span>?
+                                                                  <span class="badge border-danger border-1 text-danger">TODOS OS REGISTROS DE PRODUTOS DESTE FORNECEDOR SERÃO EXCLUÍDOS</span>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                   <button type="button" class="btn btn-success" data-bs-dismiss="modal">NÃO</button>

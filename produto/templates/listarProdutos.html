@@ -34,8 +34,68 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <td colspan="7">
+                                            <a href="/produto/inserirProduto">
+                                                <button class="btn btn-sm btn-primary">Inserir Novo Produto</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="row mb-3">
+                                                <form class="row g-3">
+                                                    <form action="" method="GET">
+                                                        <input type="hidden" name="page" value="{{page.number}}">
+                                                        <div class="col-md-3">
+                                                            <input type="text" class="form-control" id="busca" name="busca" value="{{request.GET.busca}}" placeholder="busca...">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+                                                            <a href="/produto/listarProdutos">limpar</a>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="page-links">
+                                                                <!-- Disabled and active states -->
+                                                                <nav aria-label="...">
+                                                                    <ul class="pagination justify-content-end">
+                                                                    {% if page.has_previous %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="/produto/listarProdutos/?page={{page.previous_page_number}}&busca={{request.GET.busca}}" tabindex="-1">Anterior</a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="page-item disabled">
+                                                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                    {% for pageNum in page.paginator.page_range %}
+                                                                        {% if page.number == pageNum %}
+                                                                            <li class="page-item active"><a class="page-link" href="#">{{pageNum}}</a></li>
+                                                                        {% else %}
+                                                                            <li class="page-item"><a class="page-link" href="/produto/listarProdutos/?page={{pageNum}}&busca={{request.GET.busca}}">{{pageNum}}</a></li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    {% if page.has_next %}
+                                                                        <li class="page-item">
+                                                                            <a class="page-link" href="/produto/listarProdutos/?page={{page.next_page_number}}&busca={{request.GET.busca}}">Próxima</a>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="page-item disabled">
+                                                                            <a class="page-link" href="#" aria-disabled="true">Próxima</a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                    </ul>
+                                                                </nav><!-- End Disabled and active states -->
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nome</th>
+                                        <th scope="col">Categoria</th>
                                         <th scope="col">Fornecedor</th>
                                         <th scope="col">Quantidade</th>
                                         <th scope="col">preco</th>
@@ -43,11 +103,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for produto in produtos %}
+                                    {% for produto in page.object_list %}
                                     <tr>
                                         <td scope="col">{{produto.idProduto}}</td>
                                         <td scope="col">{{produto.nomeProduto}}</td>
-                                        <td scope="col">{{produto.idFornecedor}}</td>                                        
+                                        <td scope="col">{{produto.idCategoria}}</td>
+                                        <td scope="col">{{produto.idFornecedor}}</td>
                                         <td scope="col">{{produto.quantidade}}</td>
                                         <td scope="col">{{produto.preco}}</td>
                                         <td>

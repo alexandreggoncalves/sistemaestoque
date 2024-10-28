@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .forms import ProdutoForm
 from .models import Produto
 
@@ -10,6 +11,7 @@ def inserirProduto(request):
          form = ProdutoForm(request.POST)
          if form.is_valid():
              nomeProduto    = form.cleaned_data['nomeProduto']
+             idCategoria    = form.cleaned_data['idCategoria']
              idFornecedor   = form.cleaned_data['idFornecedor']
              quantidade     = form.cleaned_data['quantidade']
              preco          = form.cleaned_data['preco']
@@ -45,8 +47,15 @@ def listarProdutos(request):
         Produto.objects.filter(idProduto=request.POST.get('idProduto')).delete()
         return redirect('listarProdutos')
 
-    produtos = {
-        'produtos': Produto.objects.all().order_by('nomeProduto')
-    }
+    busca = request.GET.get('busca')
 
-    return render(request, 'listarProdutos.html', produtos)
+    if busca:
+        produtos = Produto.objects.filter(nomeProduto__icontains=busca).order_by('nomeProduto')
+    else:
+        produtos = Produto.objects.all().order_by('nomeProduto')
+
+    produto_paginator = Paginator(produtos, 10)
+    page_num = request.GET.get('page')
+    page = produto_paginator.get_page(page_num)
+
+    return render(request, 'listarProdutos.html', {'page': page})

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from .forms import FornecedorForm
 from .models import Fornecedor
@@ -42,9 +43,16 @@ def listarFornecedores(request):
     if request.method == 'POST':
         Fornecedor.objects.filter(idFornecedor=request.POST.get('idFornecedor')).delete()
         return redirect('listarFornecedores')
+    
+    busca = request.GET.get('busca')
 
-    fornecedores = {
-        'fornecedores': Fornecedor.objects.all().order_by('nomeFornecedor')
-    }
+    if busca:
+        fornecedores = Fornecedor.objects.filter(nomeFornecedor__icontains=busca).order_by('nomeFornecedor')
+    else:
+        fornecedores = Fornecedor.objects.all().order_by('nomeFornecedor')
 
-    return render(request, 'listarFornecedores.html', fornecedores)
+    fornecedor_paginator = Paginator(fornecedores, 10)
+    page_num = request.GET.get('page')
+    page = fornecedor_paginator.get_page(page_num)
+
+    return render(request, 'listarFornecedores.html', { 'page': page })

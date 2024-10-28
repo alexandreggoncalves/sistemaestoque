@@ -4,7 +4,7 @@ from .models import Categoria
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = ['nome']
+        fields = ['nomeCategoria']
         widgets = {
-            'nome': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Informe o nome da categoria'})
+            'nomeCategoria': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Informe o nome da categoria'})
         }

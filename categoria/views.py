@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from .forms import CategoriaForm
 from .models import Categoria
@@ -10,9 +11,9 @@ def inserirCategoria(request):
     if request.method == 'POST':
          form = CategoriaForm(request.POST)
          if form.is_valid():
-             nome = form.cleaned_data['nome']
+             nomeCategoria = form.cleaned_data['nomeCategoria']
 
-             categoria = Categoria.objects.create(nome=nome)
+             categoria = Categoria.objects.create(nomeCategoria=nomeCategoria)
              categoria.save()
              form = CategoriaForm()
              return render(request, 'inserirCategoria.html', { 'form': form, 'message': 'Categoria inserida com sucesso!'})
@@ -43,9 +44,16 @@ def listarCategorias(request):
     if request.method == 'POST':
         Categoria.objects.filter(idCategoria=request.POST.get('idCategoria')).delete()
         return redirect('listarCategorias')
+    
+    busca = request.GET.get('busca')
 
-    categorias = {
-        'categorias': Categoria.objects.all().order_by('nome')
-    }
+    if busca:
+        categorias = Categoria.objects.filter(nomeCategoria__icontains=busca).order_by('nomeCategoria')
+    else:
+        categorias = Categoria.objects.all().order_by('nomeCategoria')
 
-    return render(request, 'listarCategorias.html', categorias)
+    categoria_paginator = Paginator(categorias, 10)
+    page_num = request.GET.get('page')
+    page = categoria_paginator.get_page(page_num)
+
+    return render(request, 'listarCategorias.html', { 'page': page })
