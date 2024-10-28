@@ -2,8 +2,8 @@ from django import forms
 from .models import Produto
 
 class ProdutoForm(forms.ModelForm):
-    dataVencimento = forms.DateField(
-        label = 'Data Vencimento', 
+    dataValidade = forms.DateField(
+        label = 'Data de Validade', 
         widget=forms.DateInput(
             format='%Y-%m-%d',
             attrs={
@@ -15,13 +15,14 @@ class ProdutoForm(forms.ModelForm):
     class Meta:
         required_css_class = 'required'
         model = Produto       
-        fields = ['nomeProduto', 'idCategoria', 'idFornecedor', 'dataVencimento', 'preco', 'codigoDeBarras']        
+        fields = ['nomeProduto', 'idCategoria', 'idFornecedor', 'dataValidade', 'preco', 'codigoDeBarras', 'descricao']        
         widgets = {
             'nomeProduto': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Informe o nome do produto'}),
             'idCategoria': forms.Select(attrs = {'class': 'form-select', 'placeholder': 'Selecione uma categoria'}),
             'idFornecedor': forms.Select(attrs = {'class': 'form-select', 'placeholder': 'Selecione um fornecedor'}),
             'preco': forms.NumberInput(attrs = {'class': 'form-control'}),
-            'codigoDeBarras': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Informe o código de barras, se houver'}),
+            'descricao': forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'Informe a descrição do produto'}),
+            'codigoDeBarras': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Informe o código de barras'}),
         }
         labels = {
             'idCategoria': 'Categoria',

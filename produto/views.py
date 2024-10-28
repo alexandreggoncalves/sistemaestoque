@@ -13,11 +13,18 @@ def inserirProduto(request):
              nomeProduto    = form.cleaned_data['nomeProduto']
              idCategoria    = form.cleaned_data['idCategoria']
              idFornecedor   = form.cleaned_data['idFornecedor']
-             dataVencimento = form.cleaned_data['dataVencimento']
+             dataValidade   = form.cleaned_data['dataValidade']
              preco          = form.cleaned_data['preco']
              codigoDeBarras = form.cleaned_data['codigoDeBarras']
+             descricao      = form.cleaned_data['descricao']
 
-             produto = Produto.objects.create(nomeProduto=nomeProduto, idFornecedor=idFornecedor, idCategoria=idCategoria, dataVencimento=dataVencimento, preco=preco, codigoDeBarras=codigoDeBarras)
+             produto = Produto.objects.create(nomeProduto=nomeProduto, 
+                                              idFornecedor=idFornecedor, 
+                                              idCategoria=idCategoria, 
+                                              dataValidade=dataValidade, 
+                                              preco=preco, 
+                                              codigoDeBarras=codigoDeBarras, 
+                                              descricao=descricao)
              produto.save()
              form = ProdutoForm()
              return render(request, 'inserirProduto.html', { 'form': form, 'message': 'Produto inserido com sucesso!'})
