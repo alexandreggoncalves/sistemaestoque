@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import datetime
 from categoria.models import Categoria
 from fornecedor.models import Fornecedor
 
@@ -12,6 +13,8 @@ class Produto(models.Model):
     nomeProduto     = models.CharField(max_length=255)
     quantidade      = models.IntegerField(default=0)
     preco           = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    dataVencimento  = models.DateField(blank=True, null=True)
+    descricao       = models.TextField(blank=True, null=True)
     codigoDeBarras  = models.CharField(max_length=255)
     dataEntrada     = models.DateField(auto_now_add=True)
     created_at      = models.DateTimeField(auto_now_add=True)
