@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Listar Fornecedores</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+                    <li class="breadcrumb-item">Fornecedores</li>
+                    <li class="breadcrumb-item active">Listar Fornecedor</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+    
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Fornecedores cadastrados no sistema</h5>
+                            {% if message %}
+                            <div class="col-lg-4">
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  {{ message }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                            </div>
+                            {% endif %}
+                            <!-- Table with hoverable rows -->
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td colspan="3">
+                                            <a href="/fornecedor/inserirFornecedor">
+                                                <button class="btn btn-sm btn-primary">Inserir Novo Fornecedor</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Cidade</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for fornecedor in fornecedores %}
+                                    <tr>
+                                        <td scope="col">{{fornecedor.idFornecedor}}</td>
+                                        <td scope="col">{{fornecedor.nomeFornecedor}}</td>
+                                        <td scope="col">{{fornecedor.idCidade}}</td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/fornecedor/editarFornecedor/{{fornecedor.idFornecedor}}">
+                                                            <button class="btn btn-sm btn-primary" alt="editar"><i class="ri-edit-box-fill"></i></button>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="idFornecedor" value="{{fornecedor.idFornecedor}}">
+                                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{fornecedor.idFornecedor}}"><i class="bi bi-trash"></i></button>
+                                                        </form>
+                                                        <div class="modal fade" id="delete{{fornecedor.idFornecedor}}" tabindex="-1">
+                                                            <div class="modal-dialog">
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title">ATENÇÃO!</h5>
+                                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                  Deseja realemnte excluir o registro: <span class="badge rounded-pill bg-warning text-dark">{{fornecedor.idFornecedor}} - {{fornecedor.nomeFornecedor}}</span>?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">NÃO</button>
+                                                                    <form action="" method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="idFornecedor" value="{{fornecedor.idFornecedor}}">
+                                                                        <button type="submit" class="btn btn-danger btn-sm">SIM</button>
+                                                                    </form>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- End Table with hoverable rows -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

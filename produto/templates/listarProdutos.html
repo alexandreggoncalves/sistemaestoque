@@ -13,7 +13,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Listar Usuários</h1>
+            <h1>Listar Produttos</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
@@ -36,17 +36,64 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nome</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Data</th>
-                                        <th scope="col">Super User</th>
-                                        <th scope="col">Options</th>
+                                        <th scope="col">Fornecedor</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">preco</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for produto in produtos %}
+                                    <tr>
+                                        <td scope="col">{{produto.idProduto}}</td>
+                                        <td scope="col">{{produto.nomeProduto}}</td>
+                                        <td scope="col">{{produto.idFornecedor}}</td>                                        
+                                        <td scope="col">{{produto.quantidade}}</td>
+                                        <td scope="col">{{produto.preco}}</td>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/produto/editarProduto/{{produto.idProduto}}">
+                                                            <button class="btn btn-sm btn-primary" alt="editar"><i class="ri-edit-box-fill"></i></button>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="idProduto" value="{{produto.idProduto}}">
+                                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete{{produto.idProduto}}"><i class="bi bi-trash"></i></button>
+                                                        </form>
+                                                        <div class="modal fade" id="delete{{produto.idProduto}}" tabindex="-1">
+                                                            <div class="modal-dialog">
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title">ATENÇÃO!</h5>
+                                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                  Deseja realemnte excluir o registro: <span class="badge rounded-pill bg-warning text-dark">{{produto.idProduto}} - {{produto.nomeProduto}}</span>?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">NÃO</button>
+                                                                    <form action="" method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="idProduto" value="{{produto.idProduto}}">
+                                                                        <button type="submit" class="btn btn-danger btn-sm">SIM</button>
+                                                                    </form>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                             <!-- End Table with hoverable rows -->
-
                         </div>
                     </div>
                 </div>

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'sistema',
     'produto', 
     'categoria',
+    'fornecedor',
+    'cidade', 
 ]
 
 AUTH_USER_MODEL = 'authuser.User'

@@ -17,6 +17,5 @@ class Categoria(models.Model):
     def get_absolute_url(self):
         return reverse('model-detail-view', args=[str(self.idCategoria)])
 
-
     def __str__(self):
         return self.nome
