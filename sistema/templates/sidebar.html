@@ -82,7 +82,7 @@
         <a class="nav-link collapsed" data-bs-target="#produtos-nav" data-bs-toggle="collapse" href="#">
           <i class="bx bxs-box"></i><span>Produtos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="produtos-nav" class="nav-content collapse {% if request.path == '/produto/inserirProduto/' or request.path == '/produto/listarProdutos/' or request.path in 'produto/editarProduto/requesto.GET.id' %}show{% endif %}" data-bs-parent="#sidebar-nav">
+        <ul id="produtos-nav" class="nav-content collapse {% if request.path == '/produto/inserirProduto/' or request.path == '/produto/listarProdutos/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/produto/inserirProduto">
               <i class="bi bi-circle"></i><span>Inserir</span>
