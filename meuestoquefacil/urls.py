@@ -26,6 +26,7 @@ urlpatterns = [
     path('categoria/', include('categoria.urls')),
     path('cidade/', include('cidade.urls')),
     path('fornecedor/', include('fornecedor.urls')),
+    path('entradaSaida/', include('entradaSaida.urls')),
     path('sistema/', include('sistema.urls')),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('', views.dashboard, name='dashboard'),

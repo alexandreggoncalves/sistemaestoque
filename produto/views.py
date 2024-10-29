@@ -27,6 +27,7 @@ def inserirProduto(request):
                                               descricao=descricao)
              produto.save()
              form = ProdutoForm()
+
              return render(request, 'inserirProduto.html', { 'form': form, 'message': 'Produto inserido com sucesso!'})
 
     form = ProdutoForm()
@@ -64,5 +65,4 @@ def listarProdutos(request):
     produto_paginator = Paginator(produtos, 10)
     page_num = request.GET.get('page')
     page = produto_paginator.get_page(page_num)
-
     return render(request, 'listarProdutos.html', {'page': page})

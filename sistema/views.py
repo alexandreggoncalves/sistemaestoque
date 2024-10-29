@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as logout_django
@@ -24,7 +24,8 @@ def login(request):
 
 @login_required(login_url='/sistema/login/') 
 def dashboard(request):
-    return render(request, 'dashboard/dashboard.html')
+    pathInfo = request.path
+    return render(request, 'dashboard/dashboard.html', { 'pathInfo': pathInfo})
 
 def logout(request):
     if request.method == 'GET':

@@ -7,7 +7,6 @@
         <a class="nav-link " href="/dashboard/">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
-          {{request.href}}
         </a>
       </li><!-- End Dashboard Nav -->
 
@@ -15,7 +14,7 @@
         <a class="nav-link collapsed" data-bs-target="#usuarios-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Usuários</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="usuarios-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="usuarios-nav" class="nav-content collapse {% if request.path == '/usuario/inserirUsuario/' or request.path == '/usuario/listarUsuarios/' or request.path == '/usuario/editarUsuario/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/usuario/inserirUsuario">
               <i class="bi bi-circle"></i><span>Inserir</span>
@@ -32,7 +31,7 @@
         <a class="nav-link collapsed" data-bs-target="#cidade-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-map"></i><span>Cidades</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="cidade-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="cidade-nav" class="nav-content collapse {% if request.path == '/cidade/inserirCidade/' or request.path == '/cidade/listarCidades/' or request.path == '/cidade/editarCidade/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/cidade/inserirCidade">
               <i class="bi bi-circle"></i><span>Inserir</span>
@@ -49,7 +48,7 @@
         <a class="nav-link collapsed" data-bs-target="#fornecedores-nav" data-bs-toggle="collapse" href="#">
           <i class="bx bxs-factory"></i><span>Fortnecedores</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="fornecedores-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="fornecedores-nav" class="nav-content collapse {% if request.path == '/fornecedor/inserirFornecedor/' or request.path == '/fornecedor/listarFornecedores/' or request.path == '/fornecedor/editarFornecedor/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/fornecedor/inserirFornecedor">
               <i class="bi bi-circle"></i><span>Inserir</span>
@@ -66,7 +65,7 @@
         <a class="nav-link collapsed" data-bs-target="#categorias-nav" data-bs-toggle="collapse" href="#">
           <i class="bx bxs-category"></i><span>Categorias</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="categorias-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="categorias-nav" class="nav-content collapse {% if request.path == '/categoria/inserirCategoria/' or request.path == '/categoria/listarCategorias/' or request.path == 'categoria/editarCategoria/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/categoria/inserirCategoria">
               <i class="bi bi-circle"></i><span>Inserir</span>
@@ -83,7 +82,7 @@
         <a class="nav-link collapsed" data-bs-target="#produtos-nav" data-bs-toggle="collapse" href="#">
           <i class="bx bxs-box"></i><span>Produtos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="produtos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="produtos-nav" class="nav-content collapse {% if request.path == '/produto/inserirProduto/' or request.path == '/produto/listarProdutos/' or request.path in 'produto/editarProduto/requesto.GET.id' %}show{% endif %}" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/produto/inserirProduto">
               <i class="bi bi-circle"></i><span>Inserir</span>
@@ -92,6 +91,18 @@
           <li>
             <a href="/produto/listarProdutos">
               <i class="bi bi-circle"></i><span>Listar</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#entradasaida-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bxs-box"></i><span>Entrada/Saída</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="entradasaida-nav" class="nav-content collapse {% if request.path == '/entradaSaida/registrarEntradaSaida/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/entradaSaida/registrarEntradaSaida">
+              <i class="bi bi-circle"></i><span>Registrar</span>
             </a>
           </li>
         </ul>

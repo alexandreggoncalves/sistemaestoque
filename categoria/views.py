@@ -16,7 +16,7 @@ def inserirCategoria(request):
              categoria = Categoria.objects.create(nomeCategoria=nomeCategoria)
              categoria.save()
              form = CategoriaForm()
-             return render(request, 'inserirCategoria.html', { 'form': form, 'message': 'Categoria inserida com sucesso!'})
+             return render(request, 'inserirCategoria.html', {'form': form, 'message': 'Categoria inserida com sucesso!'})
 
     form = CategoriaForm()
     return render(request, 'inserirCategoria.html', { 'form': form})
