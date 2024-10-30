@@ -32,15 +32,20 @@
                                 <thead>
                                     <tr>
                                         <td colspan="4">
-                                            <div class="row mb-3">
+                                            <div class="row mb-6">
                                                 <form class="row g-3">
                                                     <form action="" method="POST">
-                                                        <div class="col-md-3">
-                                                            <input type="text" class="form-control" id="txtBusca" name="txtBusca" value="" placeholder="buscar um produdo...">
+                                                        <div class="col-md-4">
+                                                            <label for="inputEmail5" class="form-label">Nome do Produto</label>
+                                                            <input type="text" class="form-control" id="txtBusca" name="txtBusca" value="" placeholder="nome do produto...">
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <button type="button" name="btnBuscar" id="btnBuscar" class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
-                                                            <button type="button" name="btnLimpar" id="btnLimpar" class="btn btn-sm btn-primary"><i class="bx bx-reset"></i></button>
+                                                        <div class="col-md-4">
+                                                            <label for="inputPassword5" class="form-label">Código de Barras</label>
+                                                            <input type="text" class="form-control" id="txtBarras" name="txtBarras" value="" placeholder="código de barras...">
+                                                        </div>
+                                                        <div class="col-md-2" style="padding-top:35px;"">
+                                                            <button type="button" name="btnBuscar" id="btnBuscar" class="btn btn-sm btn-primary"><i class="bi bi-search" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar produto"></i></button>
+                                                            <button type="button" name="btnLimpar" id="btnLimpar" class="btn btn-sm btn-primary"><i class="bx bx-reset" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Limpar campos"></i></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -50,7 +55,13 @@
                                 </thead>
                             </table>
                           </div>
-                          <div class="col-lg-12" name="divEntradaSaida" style="display: none;">
+                          <div class="card">
+                            <div class="card-body">
+                                <div class="col-lg-12" name="divResposta" id="divResposta" style="display: none;">
+                                </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-12" name="divEntradaSaida" id="divEntradaSaida" style="display: none;">
                             <form action="" method="post">
                               {% csrf_token %}
                               {{ form.as_p}}
@@ -67,23 +78,42 @@
         $('button#btnLimpar').on("click", function (e) {
             e.preventDefault();
             $('input#txtBusca').val('');
+            $('input#txtBarras').val('');
         });
 
         $('button#btnBuscar').on("click", function (e) {
             e.preventDefault();
             
             txtBusca = $('input#txtBusca').val();
-            if( txtBusca.length >= 3 ) { // usuário deve digitar pelo menos 3 caracteres no campo busca
+            txtBarras = $('input#txtBarras').val();
+            if( ( txtBusca.length >= 2 ) || ( txtBarras.length >= 2 ) ) { // usuário deve digitar pelo menos 3 caracteres no campo busca
               $.ajax({
                   type: 'GET',
                   url: '{% url "buscarProdutos" %}',
                   data: {
                       'txtBusca': txtBusca,
+                      'txtBarras': txtBarras,
                   },
                   datatype: "json",
 
                   success: function (data) {
-                      console.log(data)
+                    html = '<table class="table table-hover">' +
+                                '<thead>' +
+                                '<tr>' +
+                                    '<th scope="col">#</th>' +
+                                    '<th scope="col">Nome</th>' +
+                                    '<th scope="col"></th>' +
+                                '</tr>' +
+                                '</thead>';
+                    for( item in data ) {
+                        html += '<tr>' +
+                                '<td>' + item + '</td><td>' + data[item] + '</td>' + 
+                                '<td>';
+                        //console.log(data[item]);
+                    }
+                    html += '</table>';
+                    document.getElementById('divResposta').innerHTML = html;
+                    document.getElementById('divResposta').style.display = '';
                   }
 
               });

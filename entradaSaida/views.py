@@ -18,7 +18,7 @@ def registrarEntradaSaida(request):
 def buscarProdutos(request):
 
     # realiza a busca na tabela de produtos
-    produtos = Produto.objects.filter(nomeProduto__icontains=request.GET.get('txtBusca')).order_by('nomeProduto')
+    produtos = Produto.objects.filter(nomeProduto__icontains=request.GET.get('txtBusca'), codigoDeBarras__icontains=request.GET.get('txtBarras')).order_by('nomeProduto')
     
     # cria um dicionáiro para o retorno da busca e aciona o resultado.
     dataReturn = {}
