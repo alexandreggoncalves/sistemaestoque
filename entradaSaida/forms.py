@@ -8,7 +8,7 @@ class EntradaSaidaForm(forms.ModelForm):
         model = EntradaSaida
         fields = ['entradaSaida', 'quantidade', 'preco', ]
         widgets = {
-            'entradaSaida': forms.Select(attrs = {'class': 'form-control'}), 
+            'entradaSaida': forms.Select(choices=CHOICES, attrs = {'class': 'form-control form-control-sm', 'width': '100'}), 
             'quantidade': forms.TextInput(attrs = {'class': 'form-control'}),  
             'preco': forms.TextInput(attrs = {'class': 'form-control'}),      
         }

@@ -27,54 +27,79 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Registrar Entrada ou Saída de Produtos</h5>
-                                <div class="col-lg-12">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="4">
-                                                    <div class="row mb-6">
-                                                        <form class="row g-3">
-                                                            <form action="" method="POST">
-                                                                <div class="col-md-4">
-                                                                    <label for="inputEmail5" class="form-label">Nome do Produto</label>
-                                                                    <input type="text" class="form-control" id="txtBusca" name="txtBusca" value="" placeholder="nome do produto...">
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <label for="inputPassword5" class="form-label">Código de Barras</label>
-                                                                    <input type="text" class="form-control" id="txtBarras" name="txtBarras" value="" placeholder="código de barras...">
-                                                                </div>
-                                                                <div class="col-md-2" style="padding-top:35px;"">
-                                                                    <button type="button" name="btnBuscar" id="btnBuscar" class="btn btn-sm btn-primary"><i class="bi bi-search" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar produto"></i></button>
-                                                                    <button type="button" name="btnLimpar" id="btnLimpar" class="btn btn-sm btn-primary"><i class="bx bx-reset" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Limpar campos"></i></button>
-                                                                </div>
-                                                            </form>
+                            <div class="col-lg-12">
+                                <div class="alert alert-danger alert-dismissible fade show" id="message" style="display:none;" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td colspan="4">
+                                                <div class="row mb-6">
+                                                    <form class="row g-3">
+                                                        <form action="" method="POST">
+                                                            <div class="col-md-4">
+                                                                <label for="inputEmail5" class="form-label">Nome do Produto</label>
+                                                                <input type="text" class="form-control" id="txtBusca" name="txtBusca" value="" placeholder="nome do produto...">
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="inputPassword5" class="form-label">Código de Barras</label>
+                                                                <input type="text" class="form-control" id="txtBarras" name="txtBarras" value="" placeholder="código de barras...">
+                                                            </div>
+                                                            <div class="col-md-2" style="padding-top:35px;"">
+                                                                <button type="button" name="btnBuscar" id="btnBuscar" class="btn btn-sm btn-primary"><i class="bi bi-search" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar produto"></i></button>
+                                                                <button type="button" name="btnLimpar" id="btnLimpar" class="btn btn-sm btn-primary"><i class="bx bx-reset" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Limpar campos"></i></button>
+                                                            </div>
                                                         </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <div class="card" id="divCard">
-                                    <div class="card-body">
-                                        <div class="col-lg-12" name="divResposta" id="divResposta" style="display: none;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12" name="divEntradaSaida" id="divEntradaSaida" style="display: none;">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 id="txtProdutoES"></h5>
-                                            <form action="" method="post">
-                                                {% csrf_token %}
-                                                {{ form.as_p}}
-                                                <input type="hidden" name="idProdutoES" id="idProdutoES" value="">
-                                                <input type="submit" name="sarlvar" value="salvar" class="btn btn-primary btn-sm">
-                                            </form>
-                                        </div>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="card" id="divCard">
+                                <div class="card-body">
+                                    <div class="col-lg-12" name="divResposta" id="divResposta" style="display: none;">
                                     </div>
                                 </div>
                             </div>
+                            <section class="section">
+                                <div class="row">
+                                    <div class="col-lg-12" id="divEntradaSaida" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 id="txtProdutoES"></h5>
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <script>
+                                                        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                                                    </script>
+                                                    <div class="col-md-4">
+                                                        <label for="entradaSaida" class="form-label">Entrada / Saída: </label>
+                                                        <select id="entradaSaida" name="entradaSaida" id="entradaSaida" class="form-select">
+                                                            <option selected>-----</option>
+                                                            <option value="E">Entrada</option>
+                                                            <option value="S">Saída</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="quantidade" class="form-label">Quantidade: </label>
+                                                        <input type="text" class="form-control" name="quantidade" id="quantidade">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="preco" class="form-label">Preço: </label>
+                                                        <input type="text" class="form-control" name="preco" id="preco">
+                                                    </div>
+                                                    <input type="hidden" name="idProdutoES" id="idProdutoES" value="">
+                                                    <input type="hidden" name="produtoQuantidade" id="produtoQuantidade" value=""><br>
+                                                    <input type="button" name="btnSalvar" value="salvar" id="btnSalvar" class="btn btn-primary btn-sm">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -82,13 +107,13 @@
         </section>
       </main><!-- End #main -->
       <script type="text/javascript">
-        function setProduto(id, texto) {
-            document.getElementById('divResposta').innerHTML = false;
-            document.getElementById('divResposta').style.display = 'none';
-            $('input#idProdutoES').val(id); 
-            document.getElementById('txtProdutoES').innerHTML = id+' - '+texto;
-            document.getElementById('divEntradaSaida').style.display = '';
-            document.getElementById('divCard').style.display = 'none';
+        function setProduto(id, texto, quantidade) {
+            $('#divResposta').empty();
+            $('#divResposta').hide();
+            $('input#idProdutoES').val(id);
+            $('input#produtoQuantidade').val(quantidade);
+            $('#txtProdutoES').append( id+' - '+texto+' (quant: '+quantidade+')' );
+            $('#divEntradaSaida').show();
         }
 
         $('button#btnLimpar').on("click", function (e) {
@@ -96,16 +121,16 @@
             $('input#txtBusca').val('');
             $('input#txtBarras').val('');
             $('input#idProdutoES').val('');
-            document.getElementById('txtProdutoES').innerHTML = '';
-            document.getElementById('divEntradaSaida').style.display = 'none';            
+            $('$txtProdutoES').empty();
+            $('#divEntradaSaida').hide();            
         });
 
         $('button#btnBuscar').on("click", function (e) {
             $('input#idProdutoES').val('');
-            document.getElementById('divResposta').innerHTML = '';
-            document.getElementById('divResposta').style.display = 'none';
-            document.getElementById('txtProdutoES').innerHTML = '';
-            document.getElementById('divEntradaSaida').style.display = 'none';
+            $('#divResposta').empty();
+            $('#divResposta').hide();
+            $('#txtProdutoES').empty();
+            $('#divEntradaSaida').hide();
             e.preventDefault();
             
             txtBusca = $('input#txtBusca').val();
@@ -131,16 +156,61 @@
                                 '</thead>';
                     for( item in data ) {
                         html += '<tr>' +
-                                '<td>' + item + '</td><td>' + data[item] + '</td>' + 
-                                '<td><button type="button" class="btn btn-primary btn-sm" onClick="setProduto(\''+item+'\', \''+data[item]+'\');">selecionar</button></td>';
+                                '<td>' + item + '</td><td>' + data[item]['nome'] + ' (quant: '+data[item]['quantidade']+')</td>' + 
+                                '<td><button type="button" class="btn btn-primary btn-sm" onClick="setProduto(\''+item+'\', \''+data[item]['nome']+'\', \''+data[item]['quantidade']+'\');">selecionar</button></td>';
                         //console.log(data[item]);
-                    }
+                    }   
                     html += '</table>';
-                    document.getElementById('divResposta').innerHTML = html;
-                    document.getElementById('divResposta').style.display = '';
+                    $('input#produtoQuantidade').val(data[item]['quantidade']);
+                    $('#divResposta').append(html);
+                    $('#divResposta').show();
                   }
 
               });
+            }
+        });
+
+        $('input#btnSalvar').on("click", function (e) {
+            e.preventDefault();
+
+            idProdutoES         = $('input#idProdutoES').val();
+            entradaSaida        = $('select#entradaSaida option:selected').val();
+            quantidade          = $('input#quantidade').val();
+            preco               = $('input#preco').val();
+            produtoQuantidade   = $('input#produtoQuantidade').val(); 
+
+            if( entradaSaida == 'E' ) {
+                quantidadeTotal = produtoQuantidade + quantidade;
+                flagSalvar = true;
+            } else {
+                if( produtoQuantidade >= quantidade ) {
+                    quantidadeTotal = produtoQuantidade - quantidade;
+                    flagSalvar = true;
+                } else {
+                    flagSalvar = false;
+                }
+            }            
+            
+            if( flagSalvar == true ) {
+                $.ajax({
+                    headers: {'X-CSRFToken': csrftoken},
+                    type: 'POST',
+                    url: '{% url "buscarProdutos" %}',
+                    data: {
+                        'idProdutoES': idProdutoES,
+                        'entradaSaida': entradaSaida,
+                        'quantidade': quantidade, 
+                        'preco': preco, 
+                    },
+                    datatype: "json",
+
+                    success: function (data) {
+                        console.log(data);
+                        $('#btnBuscar').trigger('click');
+                    }
+                });
+            } else {
+                console.log('Quantidade informada na saída maior que estoque disponível! ('+produtoQuantidade+'/'+quantidade+' )');
             }
         });
     </script> 
