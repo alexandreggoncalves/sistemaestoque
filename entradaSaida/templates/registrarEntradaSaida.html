@@ -109,8 +109,11 @@
                 </div>
             </div>
         </section>
-      </main><!-- End #main -->
+      </main><!-- End #main -->           
       <script type="text/javascript">
+        $('#quantidade').mask('00000', {reverse: true});
+        $('#preco').mask('##0.00', {reverse: true});
+
         function setProduto(id, texto, quantidade, preco) {
             $('#divResposta').empty();
             $('#divResposta').hide();
