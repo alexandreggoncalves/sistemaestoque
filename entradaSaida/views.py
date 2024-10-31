@@ -9,9 +9,13 @@ from produto.models import Produto
 # INSERIR ENTRADA/SAIDA
 @login_required(login_url='/sistema/login/') 
 def registrarEntradaSaida(request):
-    
+    if request.GET.get('codigoDeBarras'):
+        codigoDeBarras = request.GET.get('codigoDeBarras')
+    else:
+        codigoDeBarras = False
+
     form = EntradaSaidaForm()
-    return render(request, 'registrarEntradaSaida.html', { 'form': form})
+    return render(request, 'registrarEntradaSaida.html', { 'form': form, 'codigoDeBarras': codigoDeBarras })
 
 # BUSCA DE PRODUTOS
 @login_required(login_url='/sistema/login/') 
@@ -64,7 +68,8 @@ def buscarProdutos(request):
         if produtos:
             for produtos in produtos: # adicona os resultados no dicionario
                 dataReturn[produtos.idProduto] = {'nome': produtos.nomeProduto, 
-                                                'quantidade': produtos.quantidade}
+                                                'quantidade': produtos.quantidade, 
+                                                'preco': produtos.preco }
         else:
             dataReturn[0] = {'nome': 'não formam encontrados produtos',
                              'quantidade': '0'}

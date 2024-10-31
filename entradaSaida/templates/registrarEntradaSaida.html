@@ -44,7 +44,11 @@
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="inputPassword5" class="form-label">Código de Barras</label>
-                                                                <input type="text" class="form-control" id="txtBarras" name="txtBarras" value="" placeholder="código de barras...">
+                                                                {% if codigoDeBarras %}
+                                                                    <input type="text" class="form-control" id="txtBarras" name="txtBarras" value="{{codigoDeBarras}}">
+                                                                {% else %}
+                                                                    <input type="text" class="form-control" id="txtBarras" name="txtBarras" value="" placeholder="código de barras...">
+                                                                {% endif %}
                                                             </div>
                                                             <div class="col-md-2" style="padding-top:35px;"">
                                                                 <button type="button" name="btnBuscar" id="btnBuscar" class="btn btn-sm btn-primary"><i class="bi bi-search" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar produto"></i></button>
@@ -107,12 +111,12 @@
         </section>
       </main><!-- End #main -->
       <script type="text/javascript">
-        function setProduto(id, texto, quantidade) {
+        function setProduto(id, texto, quantidade, preco) {
             $('#divResposta').empty();
             $('#divResposta').hide();
             $('input#idProdutoES').val(id);
             $('input#produtoQuantidade').val(quantidade);
-            $('#txtProdutoES').append( id+' - '+texto+' (quant: '+quantidade+')' );
+            $('#txtProdutoES').append( id+' - '+texto+' (R$: '+preco+' / quant: '+quantidade+')' );
             $('#divEntradaSaida').show();
         }
 
@@ -156,8 +160,8 @@
                                 '</thead>';
                     for( item in data ) {
                         html += '<tr>' +
-                                '<td>' + item + '</td><td>' + data[item]['nome'] + ' (quant: '+data[item]['quantidade']+')</td>' + 
-                                '<td><button type="button" class="btn btn-primary btn-sm" onClick="setProduto(\''+item+'\', \''+data[item]['nome']+'\', \''+data[item]['quantidade']+'\');">selecionar</button></td>';
+                                '<td>' + item + '</td><td>' + data[item]['nome'] + ' (R$ '+data[item]['preco']+' / quant: '+data[item]['quantidade']+')</td>' + 
+                                '<td><button type="button" class="btn btn-primary btn-sm" onClick="setProduto(\''+item+'\', \''+data[item]['nome']+'\', \''+data[item]['quantidade']+'\', \''+data[item]['preco']+'\');">selecionar</button></td>';
                         //console.log(data[item]);
                     }   
                     html += '</table>';
@@ -214,5 +218,10 @@
             }
         });
     </script> 
+    {% if codigoDeBarras %}
+        <script type="text/javascript">
+            $('#btnBuscar').trigger('click');
+        </script>
+    {% endif %}
 {% endblock %}
 

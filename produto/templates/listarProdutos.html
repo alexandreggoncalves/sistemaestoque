@@ -98,7 +98,7 @@
                                         <th scope="col">Categoria</th>
                                         <th scope="col">Fornecedor</th>
                                         <th scope="col">Quantidade</th>
-                                        <th scope="col">preco</th>
+                                        <th scope="col">Preço</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -115,8 +115,13 @@
                                             <table>
                                                 <tr>
                                                     <td>
+                                                        <a href="#">
+                                                            <button class="btn btn-sm btn-success" alt="editar"><i class="bi bi-arrow-down-up" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Registrar Entrada/Saída" onClick="entradaSaida('{{produto.codigoDeBarras}}')"></i></button>
+                                                        </a>
+                                                    </td>
+                                                    <td>
                                                         <a href="/produto/editarProduto/{{produto.idProduto}}?id={{produto.idProduto}}">
-                                                            <button class="btn btn-sm btn-primary" alt="editar"><i class="ri-edit-box-fill"></i></button>
+                                                            <button class="btn btn-sm btn-primary" alt="editar"><i class="ri-edit-box-fill" data-bs-toggle="tooltip"></i></button>
                                                         </a>
                                                     </td>
                                                     <td>
@@ -155,6 +160,11 @@
                                 </tbody>
                             </table>
                             <!-- End Table with hoverable rows -->
+                            <script type="text/javascript">
+                                function entradaSaida(codigoDeBarras) {
+                                    window.location = "{{url}}/entradaSaida/registrarEntradaSaida?codigoDeBarras="+codigoDeBarras;
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
