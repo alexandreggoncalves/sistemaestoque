@@ -107,6 +107,23 @@
           </li>
         </ul>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#relatorios-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bxs-box"></i><span>Relatórios</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="relatorios-nav" class="nav-content collapse {% if request.path == '/relatorio/entradaSaida/' or request.path == '/relatorio/entradaSaida/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/relatorio/entradaSaida">
+              <i class="bi bi-circle"></i><span>Entradas e Saídas</span>
+            </a>
+          </li>
+          <li>
+            <a href="/">
+              <i class="bi bi-circle"></i><span>xxxxxxx</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
     </ul>
 
