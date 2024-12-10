@@ -18,7 +18,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
               <li class="breadcrumb-item">Relatório</li>
-              <li class="breadcrumb-item active">Entradas e Saídas</li>
+              <li class="breadcrumb-item active">Balanç Anual</li>
             </ol>
           </nav>
         </div><!-- End Page Title -->
@@ -27,7 +27,7 @@
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">
-                          <h5 class="card-title">Relatório de Entradas e Saídas</h5>
+                          <h5 class="card-title">Relatório Balanço Anual de Produtos</h5>
                           {% if message %}
                           <div class="col-lg-4">
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,26 +43,18 @@
                                   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
                               </script>
                               <div class="col-md-4">
-                                  <label for="entradaSaida" class="form-label">Tipo de Relatório: </label>
-                                  <select id="entradaSaida" name="entradaSaida" id="entradaSaida" class="form-select">
+                                  <label for="ano" class="form-label">Ano: </label>
+                                  <select id="ano" name="ano" id="ano" class="form-select">
 
                                       <option selected>-----</option>
-                                      <option value="ES">Entradas e Saídas</option>
-                                      <option value="E">Somente Entradas</option>
-                                      <option value="S">Somente Saídas</option>
+                                      <option value="2024">2024</option>
                                   </select>
-                              </div>
-                              <div class="col-md-4">
-                                  <label for="periodo" class="form-label">Periodo: </label>
-                                  <input type="date" class="form-control" name="dataInicio" id="dataInicio" value="{{dataInicio}}">
-                                  &nbsp;até&nbsp;
-                                  <input type="date" class="form-control" name="dataFim" id="dataFim" value="{{dataFim}}">
                               </div>
                               <input type="submit" name="btnBuscar" value="buscar" id="btnBuscar" class="btn btn-primary btn-sm">
                           </form>
                         </div>
                         <script type="text/javascript">
-                          $('#entradaSaida  option[value="{{entradaSaida}}"]').prop("selected", true);
+                          $('#entradaSaida  option[value="{{balancoAnual}}"]').prop("selected", true);
                         </script>
                       </div>
                   </div>

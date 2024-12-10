@@ -7,7 +7,6 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 
 
-# INSERIR PRODUTO
 @login_required(login_url='/sistema/login/') 
 def entradaSaida(request):
     if request.method == 'POST':
@@ -66,3 +65,49 @@ def entradaSaida(request):
         #return render(request, 'entradaSaida.html', { 'entradaSaida': request.POST.get('entradaSaida'), 'dataInicio': request.POST.get('dataInicio'), 'dataFim': request.POST.get('dataFim') })
     else:
         return render(request, 'entradaSaida.html')
+
+@login_required(login_url='/sistema/login/') 
+def balanco(request):
+    if request.method == 'POST':
+        ano =  request.POST.get('ano')
+        dataInicio  = str(request.POST.get('ano'))+'-01-01' 
+        dataFim     = str(request.POST.get('ano'))+'-12-31' 
+        produtos = Produto.objects.filter().order_by('nomeProduto')
+            
+        buffer = io.BytesIO()
+        p = canvas.Canvas(buffer)
+        p.setTitle('Meu Estoque Fácil - Relatório Balanço Anual - '+str(ano))
+
+        p.setFont('Helvetica', 20)
+        p.drawCentredString(300,800, 'Meu Estoque Fácil - Relatório Balanço Anual  - '+str(ano) )
+        p.line(30, 790, 550, 790)
+
+        data = [ ['Entrada/Saída', 'Quantidade', 'Preço', 'Produto'] ]
+
+        p.setFont('Helvetica', 8)
+        y = 760
+
+        p.drawString(32, 750, 'Categoria')
+        p.drawString(160, 750, 'Produto')
+        p.drawString(480, 750, 'Qtd.')
+        p.drawString(510, 750, 'Preço')
+        p.line(30, 745, 550, 745)
+
+        y -= 20
+        for prod in produtos: 
+            y -= 12
+            #line = "y: " + str(y) + " | E/S: " + str(es.entradaSaida) + " | Qtd: " + str(es.quantidade) + " | Preço: " + str(es.preco) + " | Produto: " + str(es.idProduto)
+            #p.drawString(20, y, Entrada/Saída)
+            p.drawString(32, y, str(prod.idCategoria))
+            p.drawString(160, y, str(prod.nomeProduto)[0:85])
+            p.drawString(480, y, str(prod.quantidade))
+            p.drawString(510, y, str(prod.preco))
+        
+        p.showPage()
+        p.save()
+        buffer.seek(0)
+
+        return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+        #return render(request, 'entradaSaida.html', { 'entradaSaida': request.POST.get('entradaSaida'), 'dataInicio': request.POST.get('dataInicio'), 'dataFim': request.POST.get('dataFim') })
+    else:
+        return render(request, 'balanco.html')
