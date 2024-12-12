@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+          <h1>Editar Requisição de Compra</h1>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard/">Dashboard</a></li>
+              <li class="breadcrumb-item">Requisição de Compra</li>
+              <li class="breadcrumb-item active">Editar Requisição</li>
+            </ol>
+          </nav>
+        </div><!-- End Page Title -->
+        <section class="section">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">Editar Requisição de Compra</h5>
+                          {% if message %}
+                          <div class="col-lg-4">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                          </div>
+                          {% endif %}
+                          <div class="col-lg-6">
+                            <form action="" method="post">
+                              {% csrf_token %}
+                              {{ form.as_p}}
+                              <input type="submit" name="sarlvar" value="salvar" class="btn btn-primary btn-sm">
+                            </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      </main><!-- End #main -->
+{% endblock %}

@@ -96,6 +96,23 @@
         </ul>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#requisicao-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bxs-box"></i><span>Requisição de Compra</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="requisicao-nav" class="nav-content collapse {% if request.path == '/requisicaoCompra/inserirRequisicao/' or request.path == '/requisicaoCompra/listarRequisicoes/' %}show{% endif %}" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/requisicaoCompra/inserirRequisicao">
+              <i class="bi bi-circle"></i><span>Inserir</span>
+            </a>
+          </li>
+          <li>
+            <a href="/requisicaoCompra/listarRequisicoes">
+              <i class="bi bi-circle"></i><span>Listar</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#entradasaida-nav" data-bs-toggle="collapse" href="#">
           <i class="bx bxs-box"></i><span>Entrada/Saída</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

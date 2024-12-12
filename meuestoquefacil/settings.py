@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'cidade', 
     'entradaSaida', 
     'relatorio', 
+    'requisicaoCompra', 
 ]
 
 AUTH_USER_MODEL = 'authuser.User'
